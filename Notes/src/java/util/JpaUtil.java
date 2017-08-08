@@ -9,7 +9,7 @@ public class JpaUtil {
     private static final EntityManagerFactory factory;
 
     static {
-        factory = Persistence.createEntityManagerFactory("Java_WEB_BD");
+        factory = Persistence.createEntityManagerFactory("Notes");
     }
 
     public static EntityManager getEntityManager() {
