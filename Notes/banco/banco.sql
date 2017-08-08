@@ -5,7 +5,28 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.2
 
--- Started on 2017-08-01 09:30:40
+-- Started on 2017-08-08 10:51:41
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 2123 (class 1262 OID 16403)
+-- Name: notes; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE notes WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Portuguese_Brazil.1252' LC_CTYPE = 'Portuguese_Brazil.1252';
+
+
+ALTER DATABASE notes OWNER TO postgres;
+
+\connect notes
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,7 +46,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2129 (class 0 OID 0)
+-- TOC entry 2125 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -40,81 +61,41 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 186 (class 1259 OID 16397)
--- Name: curso; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 185 (class 1259 OID 16404)
+-- Name: Aluno; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE curso (
-    codigo integer NOT NULL,
-    nome character varying(50)
+CREATE TABLE "Aluno" (
+    "idAluno" integer NOT NULL,
+    "cpfAluno" character(14) NOT NULL,
+    "rgAluno" character(12) NOT NULL,
+    "dataNascimentoAluno" date NOT NULL,
+    "emailAluno" character(45) NOT NULL,
+    "celularAluno" character(16),
+    "raAluno" character(6) NOT NULL
 );
 
 
-ALTER TABLE curso OWNER TO postgres;
+ALTER TABLE "Aluno" OWNER TO postgres;
 
 --
--- TOC entry 185 (class 1259 OID 16395)
--- Name: curso_codigo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE curso_codigo_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE curso_codigo_seq OWNER TO postgres;
-
---
--- TOC entry 2130 (class 0 OID 0)
+-- TOC entry 2118 (class 0 OID 16404)
 -- Dependencies: 185
--- Name: curso_codigo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+-- Data for Name: Aluno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE curso_codigo_seq OWNED BY curso.codigo;
-
-
---
--- TOC entry 2001 (class 2604 OID 16400)
--- Name: curso codigo; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY curso ALTER COLUMN codigo SET DEFAULT nextval('curso_codigo_seq'::regclass);
 
 
 --
--- TOC entry 2122 (class 0 OID 16397)
--- Dependencies: 186
--- Data for Name: curso; Type: TABLE DATA; Schema: public; Owner: postgres
+-- TOC entry 2000 (class 2606 OID 16408)
+-- Name: Aluno Aluno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-COPY curso (codigo, nome) FROM stdin;
-1	Programação de Aeronaves
-2	Programação de Aeronaves
-\.
+ALTER TABLE ONLY "Aluno"
+    ADD CONSTRAINT "Aluno_pkey" PRIMARY KEY ("idAluno");
 
 
---
--- TOC entry 2131 (class 0 OID 0)
--- Dependencies: 185
--- Name: curso_codigo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('curso_codigo_seq', 2, true);
-
-
---
--- TOC entry 2003 (class 2606 OID 16402)
--- Name: curso curso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY curso
-    ADD CONSTRAINT curso_pkey PRIMARY KEY (codigo);
-
-
--- Completed on 2017-08-01 09:30:40
+-- Completed on 2017-08-08 10:51:41
 
 --
 -- PostgreSQL database dump complete
