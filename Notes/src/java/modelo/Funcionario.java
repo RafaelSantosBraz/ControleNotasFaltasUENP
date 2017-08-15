@@ -5,27 +5,33 @@
  */
 package modelo;
 
+import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author a120121
  */
-public class Funcionario {
+@Entity
+@Table(name = "funcionario") // nome da tabela
+
+public class Funcionario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idFuncionario")
+    @Column(name = "codigo")
     private Integer codigo;
 
-    @Column(length = 14, name = "cpfFuncionario")
+    @Column(length = 14, name = "cpf")
     private String cpf;
 
-    @Column(length = 50, name = "nomeFuncionario")
+    @Column(length = 50, name = "nome")
     private String nome;
 
     public Funcionario() {
@@ -95,5 +101,5 @@ public class Funcionario {
     public String toString() {
         return "Funcionario{" + "codigo=" + codigo + ", cpf=" + cpf + ", nome=" + nome + '}';
     }
-    
+
 }

@@ -5,6 +5,7 @@
  */
 package dao;
 
+import modelo.Funcionario;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -39,7 +40,9 @@ public class FuncionarioDaoTest {
 
     @Test
     public void testSomeMethod() {
-        
+        Funcionario func = new Funcionario();
+        func.setNome("Henrique Ricordi");
+        new FuncionarioDao().inserir(func);
     }
     
 }

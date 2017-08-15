@@ -2,31 +2,10 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.2
+-- Dumped from database version 9.6.3
+-- Dumped by pg_dump version 9.6.3
 
--- Started on 2017-08-08 10:51:41
-
-SET statement_timeout = 0;
-SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = on;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET row_security = off;
-
---
--- TOC entry 2123 (class 1262 OID 16403)
--- Name: notes; Type: DATABASE; Schema: -; Owner: postgres
---
-
-CREATE DATABASE notes WITH TEMPLATE = template0 ENCODING = 'UTF8' LC_COLLATE = 'Portuguese_Brazil.1252' LC_CTYPE = 'Portuguese_Brazil.1252';
-
-
-ALTER DATABASE notes OWNER TO postgres;
-
-\connect notes
+-- Started on 2017-08-15 10:50:33
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -46,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2125 (class 0 OID 0)
+-- TOC entry 2136 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -61,41 +40,115 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 185 (class 1259 OID 16404)
--- Name: Aluno; Type: TABLE; Schema: public; Owner: postgres
+-- TOC entry 186 (class 1259 OID 24601)
+-- Name: curso; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "Aluno" (
-    "idAluno" integer NOT NULL,
-    "cpfAluno" character(14) NOT NULL,
-    "rgAluno" character(12) NOT NULL,
-    "dataNascimentoAluno" date NOT NULL,
-    "emailAluno" character(45) NOT NULL,
-    "celularAluno" character(16),
-    "raAluno" character(6) NOT NULL
+CREATE TABLE curso (
+    codigo integer NOT NULL,
+    nome character varying(50)
 );
 
 
-ALTER TABLE "Aluno" OWNER TO postgres;
+ALTER TABLE curso OWNER TO postgres;
 
 --
--- TOC entry 2118 (class 0 OID 16404)
+-- TOC entry 185 (class 1259 OID 24599)
+-- Name: curso_codigo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE curso_codigo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE curso_codigo_seq OWNER TO postgres;
+
+--
+-- TOC entry 2137 (class 0 OID 0)
 -- Dependencies: 185
--- Data for Name: Aluno; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Name: curso_codigo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
+ALTER SEQUENCE curso_codigo_seq OWNED BY curso.codigo;
 
 
 --
--- TOC entry 2000 (class 2606 OID 16408)
--- Name: Aluno Aluno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+-- TOC entry 188 (class 1259 OID 24609)
+-- Name: funcionario; Type: TABLE; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Aluno"
-    ADD CONSTRAINT "Aluno_pkey" PRIMARY KEY ("idAluno");
+CREATE TABLE funcionario (
+    codigo integer NOT NULL,
+    cpf character varying(14),
+    nome character varying(50)
+);
 
 
--- Completed on 2017-08-08 10:51:41
+ALTER TABLE funcionario OWNER TO postgres;
+
+--
+-- TOC entry 187 (class 1259 OID 24607)
+-- Name: funcionario_codigo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE funcionario_codigo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE funcionario_codigo_seq OWNER TO postgres;
+
+--
+-- TOC entry 2138 (class 0 OID 0)
+-- Dependencies: 187
+-- Name: funcionario_codigo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE funcionario_codigo_seq OWNED BY funcionario.codigo;
+
+
+--
+-- TOC entry 2007 (class 2604 OID 24604)
+-- Name: curso codigo; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY curso ALTER COLUMN codigo SET DEFAULT nextval('curso_codigo_seq'::regclass);
+
+
+--
+-- TOC entry 2008 (class 2604 OID 24612)
+-- Name: funcionario codigo; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY funcionario ALTER COLUMN codigo SET DEFAULT nextval('funcionario_codigo_seq'::regclass);
+
+
+--
+-- TOC entry 2010 (class 2606 OID 24606)
+-- Name: curso curso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY curso
+    ADD CONSTRAINT curso_pkey PRIMARY KEY (codigo);
+
+
+--
+-- TOC entry 2012 (class 2606 OID 24614)
+-- Name: funcionario funcionario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY funcionario
+    ADD CONSTRAINT funcionario_pkey PRIMARY KEY (codigo);
+
+
+-- Completed on 2017-08-15 10:50:33
 
 --
 -- PostgreSQL database dump complete
