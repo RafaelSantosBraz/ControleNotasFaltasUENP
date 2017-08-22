@@ -41,7 +41,7 @@ public class Avaliacao implements Serializable {
     private Double nota;
 
     @Column(name = "peso")
-    private Integer peso;
+    private Double peso;
 
     public Avaliacao() {
         this.codigo = 0;
@@ -49,7 +49,7 @@ public class Avaliacao implements Serializable {
         this.nome = "";
         this.aluno = null;
         this.nota = 0.0;
-        this.peso = 100;
+        this.peso = 1.0;
     }
 
     public Integer getCodigo() {
@@ -84,11 +84,11 @@ public class Avaliacao implements Serializable {
         this.nota = nota;
     }
 
-    public Integer getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(Integer peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
