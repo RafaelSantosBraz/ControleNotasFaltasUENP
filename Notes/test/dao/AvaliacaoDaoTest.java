@@ -5,7 +5,7 @@
  */
 package dao;
 
-import modelo.Funcionario;
+import modelo.Avaliacao;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +17,9 @@ import static org.junit.Assert.*;
  *
  * @author a120121
  */
-public class FuncionarioDaoTest {
+public class AvaliacaoDaoTest {
     
-    public FuncionarioDaoTest() {
+    public AvaliacaoDaoTest() {
     }
     
     @BeforeClass
@@ -40,9 +40,9 @@ public class FuncionarioDaoTest {
 
     @Test
     public void testSomeMethod() {
-        Funcionario func = new Funcionario();
-        func.setNome("Henrique Ricordi :)");
-        new FuncionarioDao().inserir(func);
+        Avaliacao ava = new Avaliacao();
+        ava.setNome("Prova 1");
+        new AvaliacaoDao().inserir(ava);
     }
     
 }

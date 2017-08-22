@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dao;
+package modelo;
 
-import modelo.Funcionario;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -17,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author a120121
  */
-public class FuncionarioDaoTest {
+public class AvaliacaoTest {
     
-    public FuncionarioDaoTest() {
+    public AvaliacaoTest() {
     }
     
     @BeforeClass
@@ -40,9 +39,8 @@ public class FuncionarioDaoTest {
 
     @Test
     public void testSomeMethod() {
-        Funcionario func = new Funcionario();
-        func.setNome("Henrique Ricordi :)");
-        new FuncionarioDao().inserir(func);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
