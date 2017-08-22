@@ -41,7 +41,7 @@ public class Aluno implements Serializable {
         this.codigo = 0;
         this.cpf = "";
         this.nome = "";
-        this.nome = "";
+        this.email = "";
     }
 
     public String getEmail() {

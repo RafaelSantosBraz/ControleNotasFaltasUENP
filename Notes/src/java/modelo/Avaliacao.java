@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,10 +33,12 @@ public class Avaliacao implements Serializable {
     @Column(length = 50, name = "nome")
     private String nome;
 
-    @Column(name = "disciplina")
+    @ManyToOne
+    @JoinColumn (name = "disciplina", referencedColumnName = "codigo")
     private Disciplina disciplina;
 
-    @Column(name = "aluno")
+    @ManyToOne
+    @JoinColumn (name = "aluno", referencedColumnName = "codigo")
     private Aluno aluno;
 
     @Column(name = "nota")
