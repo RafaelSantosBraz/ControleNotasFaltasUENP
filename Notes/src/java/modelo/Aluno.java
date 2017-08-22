@@ -34,22 +34,10 @@ public class Aluno implements Serializable {
     @Column(length = 50, name = "nome")
     private String nome;
 
-    @Column(length = 60, name = "email")
-    private String email;
-
     public Aluno() {
         this.codigo = 0;
         this.cpf = "";
         this.nome = "";
-        this.email = "";
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Integer getCodigo() {
@@ -82,7 +70,6 @@ public class Aluno implements Serializable {
         hash = 23 * hash + Objects.hashCode(this.codigo);
         hash = 23 * hash + Objects.hashCode(this.cpf);
         hash = 23 * hash + Objects.hashCode(this.nome);
-        hash = 23 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
@@ -104,9 +91,6 @@ public class Aluno implements Serializable {
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.email, other.email)) {
-            return false;
-        }
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
@@ -115,7 +99,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Aluno{" + "codigo=" + codigo + ", cpf=" + cpf + ", nome=" + nome + ", email=" + email + '}';
+        return "Aluno{" + "codigo=" + codigo + ", cpf=" + cpf + ", nome=" + nome + '}';
     }
 
 }

@@ -33,17 +33,13 @@ public class Disciplina implements Serializable {
 
     @Column(name = "cargaHoraria")
     private Integer cargaHorario;
-
-    @Column(name = "professor")
-    private Professor professor;
-
+    
     public Disciplina() {
         this.codigo = 0;
         this.cargaHorario = 0;
         this.nome = "";
-        this.professor = null;
     }
-
+    
     public Integer getCodigo() {
         return codigo;
     }
@@ -60,14 +56,6 @@ public class Disciplina implements Serializable {
         this.cargaHorario = cargaHorario;
     }
 
-    public Professor getProfessor() {
-        return professor;
-    }
-
-    public void setProfessor(Professor professor) {
-        this.professor = professor;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -82,7 +70,6 @@ public class Disciplina implements Serializable {
         hash = 53 * hash + Objects.hashCode(this.codigo);
         hash = 53 * hash + Objects.hashCode(this.nome);
         hash = 53 * hash + Objects.hashCode(this.cargaHorario);
-        hash = 53 * hash + Objects.hashCode(this.professor);
         return hash;
     }
 
@@ -107,15 +94,12 @@ public class Disciplina implements Serializable {
         if (!Objects.equals(this.cargaHorario, other.cargaHorario)) {
             return false;
         }
-        if (!Objects.equals(this.professor, other.professor)) {
-            return false;
-        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHorario=" + cargaHorario + ", professor=" + professor + '}';
+        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHorario=" + cargaHorario + '}';
     }
 
 }
