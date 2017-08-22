@@ -6,12 +6,14 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -33,7 +35,10 @@ public class Aluno implements Serializable {
 
     @Column(length = 50, name = "nome")
     private String nome;
-
+    
+    @ManyToMany
+    private List<Disciplina> disciplinas;
+    
     public Aluno() {
         this.codigo = 0;
         this.cpf = "";

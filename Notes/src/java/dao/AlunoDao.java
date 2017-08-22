@@ -1,8 +1,10 @@
 package dao;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.criteria.CriteriaQuery;
 import modelo.Aluno;
 import util.JpaUtil;
 
@@ -10,14 +12,57 @@ public class AlunoDao implements Serializable {
 
     EntityManager manager;
 
-    public boolean inserir(Aluno aluno) {
+    /**
+     * Altera os dados do objeto com o codigo igual ao parâmetro.
+     *
+     * @param d
+     * @return
+     */
+    public boolean alterar(Aluno d) {
+        manager = JpaUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(d);
+        manager.getTransaction().commit();
+        manager.close();
+        return true;
+    }
+
+    public Aluno buscarPorCodigo(int cod) {
+        manager = JpaUtil.getEntityManager();
+        Aluno Aluno = manager.find(Aluno.class, cod);
+        manager.close();
+        return Aluno;
+    }
+
+    public boolean excluir(Aluno Aluno) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        manager.persist(aluno);
+        // recupera a referência ao objeto
+        Aluno temp = manager.find(Aluno.class, Aluno.getCodigo());
+        manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
+    }
+
+    public boolean inserir(Aluno Aluno) {
+        manager = JpaUtil.getEntityManager();
+        EntityTransaction tx = manager.getTransaction();
+        tx.begin();
+        manager.persist(Aluno);
+        tx.commit();
+        manager.close();
+        return true;
+    }
+
+    public List<Aluno> listarTodos() {
+        manager = JpaUtil.getEntityManager();
+        CriteriaQuery<Aluno> query = manager.getCriteriaBuilder().createQuery(Aluno.class);
+        query.select(query.from(Aluno.class));
+        List<Aluno> lista = manager.createQuery(query).getResultList();
+        manager.close();
+        return lista;
     }
 
 }
