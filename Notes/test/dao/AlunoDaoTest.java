@@ -6,6 +6,7 @@
 package dao;
 
 import modelo.Aluno;
+import modelo.Disciplina;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,7 +42,9 @@ public class AlunoDaoTest {
     @Test
     public void testSomeMethod() {
         Aluno d = new Aluno();
-        d.setNome(":'(");
+        d.setNome("Juriscleison");
+        Disciplina dis = new Disciplina();
+        dis.setNome("Magic");
         new AlunoDao().inserir(d);
     }
     
