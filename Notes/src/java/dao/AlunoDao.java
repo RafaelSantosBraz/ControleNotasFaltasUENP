@@ -38,7 +38,7 @@ public class AlunoDao implements Serializable {
     
     public Aluno buscarPorCPF(String cpf) {
         manager = JpaUtil.getEntityManager();
-        TypedQuery<Aluno> query = manager.createNamedQuery("Aluno.findBycpf", Aluno.class);
+        TypedQuery<Aluno> query = manager.createNamedQuery("Aluno.findByCpf", Aluno.class);
         query.setParameter("cpf", cpf);
         try {
             if (query.getSingleResult() != null)
