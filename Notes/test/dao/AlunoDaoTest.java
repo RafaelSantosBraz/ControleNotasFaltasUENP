@@ -40,12 +40,17 @@ public class AlunoDaoTest {
     }
 
     @Test
-    public void testSomeMethod() {
+    public void testMatricular() {
         Aluno d = new Aluno();
-        d.setNome("Juriscleison");
-        Disciplina dis = new Disciplina();
-        dis.setNome("Magic");
-        new AlunoDao().inserir(d);
+        new AlunoDao().buscarPorCPF("1234567898");
     }
+    
+//    @Test
+//    public void testeInserir(){
+//        Aluno a = new Aluno();
+//        a.setCpf("1234567898");
+//        a.setNome("Rafael Braz");
+//        new AlunoDao().inserir(a);
+//    }
     
 }

@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -35,15 +36,24 @@ public class Aluno implements Serializable {
 
     @Column(length = 50, name = "nome")
     private String nome;
-    
-    @ManyToOne
+
+    @OneToMany(mappedBy = "aluno")
     private List<Matricula> matriculas;
+
     public Aluno() {
         this.codigo = 0;
         this.cpf = "";
         this.nome = "";
     }
 
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+    
     public Integer getCodigo() {
         return codigo;
     }

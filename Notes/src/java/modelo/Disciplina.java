@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -36,13 +38,21 @@ public class Disciplina implements Serializable {
     @Column(name = "cargaHoraria")
     private Integer cargaHorario;
     
-    @ManyToMany(mappedBy = "disciplinas")
-    private List<Aluno> alunos;
+    @OneToMany(mappedBy = "disciplina")
+    private List<Matricula> matriculas;
     
     public Disciplina() {
         this.codigo = 0;
         this.cargaHorario = 0;
         this.nome = "";
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
     
     public Integer getCodigo() {

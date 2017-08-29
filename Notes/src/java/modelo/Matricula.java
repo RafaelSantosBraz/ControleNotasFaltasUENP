@@ -32,14 +32,47 @@ public class Matricula {
     private Integer codigo;
 
     @ManyToOne(optional=false, cascade = CascadeType.MERGE ) // permite atualizar aluno se mudar o campo aluno do objeto membroAluno
-    @JoinColumn(name="codigo")
+    @JoinColumn(name="aluno", referencedColumnName = "codigo")
     private Aluno aluno;
     
     @ManyToOne
-    @JoinColumn(name = "iddisciplina")
+    @JoinColumn(name = "disciplina")
     private Disciplina disciplina;
 
     @Column(name = "faltas")
     private Integer faltas;
+
+    public Integer getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Integer getFaltas() {
+        return faltas;
+    }
+
+    public void setFaltas(Integer faltas) {
+        this.faltas = faltas;
+    }
+    
     
 }
