@@ -45,14 +45,6 @@ public class Disciplina implements Serializable {
         this.nome = "";
     }
     
-    public void InserirAluno(Aluno aluno){
-       alunos.add(aluno);
-    }
-    
-    public void RemoverAluno(Aluno aluno){
-       alunos.remove(aluno);
-    }
-    
     public Integer getCodigo() {
         return codigo;
     }
