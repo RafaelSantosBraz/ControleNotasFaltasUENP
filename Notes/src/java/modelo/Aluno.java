@@ -14,6 +14,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,7 +25,9 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "aluno") // nome da tabela
-
+@NamedQueries({
+    @NamedQuery(name = "Aluno.findByCpf", query = "SELECT u FROM Aluno u WHERE u.cpf = :cpf")
+})
 public class Aluno implements Serializable {
 
     @Id

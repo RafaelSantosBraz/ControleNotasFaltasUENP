@@ -7,6 +7,7 @@ package dao;
 
 import modelo.Aluno;
 import modelo.Disciplina;
+import modelo.Matricula;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,8 +42,16 @@ public class AlunoDaoTest {
 
     @Test
     public void testMatricular() {
-        Aluno d = new Aluno();
-        new AlunoDao().buscarPorCPF("1234567898");
+        Aluno a;
+        a = new AlunoDao().buscarPorCPF("1234567898");
+        Disciplina d;
+        d = new DisciplinaDao().buscarPorCodigo(1);
+        Matricula m = new Matricula();
+        m.setAluno(a);
+        m.setDisciplina(d);
+        m.setFaltas(0);
+        a.getMatriculas().add(m);
+        new AlunoDao().alterar(a);
     }
     
 //    @Test
