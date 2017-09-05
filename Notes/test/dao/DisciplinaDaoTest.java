@@ -18,22 +18,22 @@ import static org.junit.Assert.*;
  * @author a120121
  */
 public class DisciplinaDaoTest {
-    
+
     public DisciplinaDaoTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -44,5 +44,5 @@ public class DisciplinaDaoTest {
         d.setNome("prog 2");
         new DisciplinaDao().inserir(d);
     }
-    
+
 }

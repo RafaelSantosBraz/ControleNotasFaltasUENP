@@ -35,25 +35,22 @@ public class AlunoDao implements Serializable {
         manager.close();
         return Aluno;
     }
-    
+
     public Aluno buscarPorCPF(String cpf) {
         manager = JpaUtil.getEntityManager();
         TypedQuery<Aluno> query = manager.createNamedQuery("Aluno.findByCpf", Aluno.class);
         query.setParameter("cpf", cpf);
         try {
-            if (query.getSingleResult() != null)
-            {
+            if (query.getSingleResult() != null) {
                 return query.getSingleResult();
-            }
-            else
-            {
+            } else {
                 return null;
             }
         } catch (NoResultException e) {
             return null;
         }
     }
-    
+
     public boolean excluir(Aluno Aluno) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();

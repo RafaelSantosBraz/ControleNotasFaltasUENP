@@ -37,10 +37,10 @@ public class Disciplina implements Serializable {
 
     @Column(name = "cargaHoraria")
     private Integer cargaHorario;
-    
+
     @OneToMany(mappedBy = "disciplina")
     private List<Matricula> matriculas;
-    
+
     public Disciplina() {
         this.codigo = 0;
         this.cargaHorario = 0;
@@ -54,7 +54,7 @@ public class Disciplina implements Serializable {
     public void setMatriculas(List<Matricula> matriculas) {
         this.matriculas = matriculas;
     }
-    
+
     public Integer getCodigo() {
         return codigo;
     }

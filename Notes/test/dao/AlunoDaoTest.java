@@ -20,22 +20,22 @@ import static org.junit.Assert.*;
  * @author a120121
  */
 public class AlunoDaoTest {
-    
+
     public AlunoDaoTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -53,7 +53,7 @@ public class AlunoDaoTest {
         a.getMatriculas().add(m);
         new AlunoDao().alterar(a);
     }
-    
+
 //    @Test
 //    public void testeInserir(){
 //        Aluno a = new Aluno();
@@ -61,5 +61,4 @@ public class AlunoDaoTest {
 //        a.setNome("Rafael Braz");
 //        new AlunoDao().inserir(a);
 //    }
-    
 }

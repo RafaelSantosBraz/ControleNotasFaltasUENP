@@ -13,7 +13,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -41,6 +40,9 @@ public class Aluno implements Serializable {
     @Column(length = 50, name = "nome")
     private String nome;
 
+    @Column(length = 16, name = "senha")
+    private String senha;
+
     @OneToMany(mappedBy = "aluno")
     private List<Matricula> matriculas;
 
@@ -57,7 +59,15 @@ public class Aluno implements Serializable {
     public void setMatriculas(List<Matricula> matriculas) {
         this.matriculas = matriculas;
     }
-    
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     public Integer getCodigo() {
         return codigo;
     }

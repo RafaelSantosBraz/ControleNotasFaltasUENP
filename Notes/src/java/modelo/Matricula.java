@@ -20,7 +20,6 @@ import javax.persistence.Table;
  *
  * @author a120120
  */
-
 @Entity
 @Table(name = "matricula")
 
@@ -31,10 +30,10 @@ public class Matricula {
     @Column(name = "codigo")
     private Integer codigo;
 
-    @ManyToOne(optional=false, cascade = CascadeType.MERGE ) // permite atualizar aluno se mudar o campo aluno do objeto membroAluno
-    @JoinColumn(name="aluno", referencedColumnName = "codigo")
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE) // permite atualizar aluno se mudar o campo aluno do objeto membroAluno
+    @JoinColumn(name = "aluno", referencedColumnName = "codigo")
     private Aluno aluno;
-    
+
     @ManyToOne
     @JoinColumn(name = "disciplina")
     private Disciplina disciplina;
@@ -73,6 +72,5 @@ public class Matricula {
     public void setFaltas(Integer faltas) {
         this.faltas = faltas;
     }
-    
-    
+
 }
