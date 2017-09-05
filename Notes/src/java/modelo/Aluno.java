@@ -34,7 +34,7 @@ public class Aluno implements Serializable {
     @Column(name = "codigo")
     private Integer codigo;
 
-    @Column(length = 14, name = "cpf")
+    @Column(length = 11, name = "cpf")
     private String cpf;
 
     @Column(length = 50, name = "nome")

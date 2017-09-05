@@ -40,25 +40,26 @@ public class AlunoDaoTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testMatricular() {
-        Aluno a;
-        a = new AlunoDao().buscarPorCPF("1234567898");
-        Disciplina d;
-        d = new DisciplinaDao().buscarPorCodigo(1);
-        Matricula m = new Matricula();
-        m.setAluno(a);
-        m.setDisciplina(d);
-        m.setFaltas(0);
-        a.getMatriculas().add(m);
-        new AlunoDao().alterar(a);
-    }
-
 //    @Test
-//    public void testeInserir(){
-//        Aluno a = new Aluno();
-//        a.setCpf("1234567898");
-//        a.setNome("Rafael Braz");
-//        new AlunoDao().inserir(a);
+//    public void testMatricular() {
+//        Aluno a;
+//        a = new AlunoDao().buscarPorCPF("1234567898");
+//        Disciplina d;
+//        d = new DisciplinaDao().buscarPorCodigo(1);
+//        Matricula m = new Matricula();
+//        m.setAluno(a);
+//        m.setDisciplina(d);
+//        m.setFaltas(0);
+//        a.getMatriculas().add(m);
+//        new AlunoDao().alterar(a);
 //    }
+
+    @Test
+    public void testeInserir(){
+        Aluno a = new Aluno();
+        a.setCpf("12312312312");
+        a.setSenha("rafael1234");
+        a.setNome("Rafael Braz");
+        new AlunoDao().inserir(a);
+    }
 }
