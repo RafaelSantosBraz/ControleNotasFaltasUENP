@@ -34,14 +34,14 @@ public class Disciplina implements Serializable {
     private String nome;
 
     @Column(name = "cargaHoraria")
-    private Integer cargaHorario;
+    private Integer cargaHoraria;
 
     @OneToMany(mappedBy = "disciplina")
     private List<Matricula> matriculas;
 
     public Disciplina() {
         this.codigo = 0;
-        this.cargaHorario = 0;
+        this.cargaHoraria = 0;
         this.nome = "";
     }
 
@@ -61,12 +61,12 @@ public class Disciplina implements Serializable {
         this.codigo = codigo;
     }
 
-    public Integer getCargaHorario() {
-        return cargaHorario;
+    public Integer getCargaHoraria() {
+        return cargaHoraria;
     }
 
-    public void setCargaHorario(Integer cargaHorario) {
-        this.cargaHorario = cargaHorario;
+    public void setCargaHoraria(Integer cargaHorario) {
+        this.cargaHoraria = cargaHorario;
     }
 
     public String getNome() {
@@ -82,7 +82,7 @@ public class Disciplina implements Serializable {
         int hash = 7;
         hash = 53 * hash + Objects.hashCode(this.codigo);
         hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.cargaHorario);
+        hash = 53 * hash + Objects.hashCode(this.cargaHoraria);
         return hash;
     }
 
@@ -104,7 +104,7 @@ public class Disciplina implements Serializable {
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
-        if (!Objects.equals(this.cargaHorario, other.cargaHorario)) {
+        if (!Objects.equals(this.cargaHoraria, other.cargaHoraria)) {
             return false;
         }
         return true;
@@ -112,7 +112,7 @@ public class Disciplina implements Serializable {
 
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHorario=" + cargaHorario + '}';
+        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHoraria=" + cargaHoraria + '}';
     }
 
 }

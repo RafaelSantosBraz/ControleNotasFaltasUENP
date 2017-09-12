@@ -41,7 +41,8 @@ public class DisciplinaDaoTest {
     @Test
     public void testSomeMethod() {
         Disciplina d = new Disciplina();
-        d.setNome("prog 2");
+        d.setNome("Programação II");
+        d.setCargaHoraria(120);
         new DisciplinaDao().inserir(d);
     }
 
