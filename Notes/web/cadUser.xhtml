@@ -9,29 +9,29 @@
         <title>Cadastrar Usuário</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    
+
     <h:body>
         <h:form id="formCadastro">
-            <p:outputLabel  value="Nome"/> 
-            <p/>
-            <p:inputText value="#{alunoControle.alunoTemp.nome}"
-                         maxlength="50" required="true" requiredMessage="Nome obrigatório" />
-            <p:outputLabel  value="CPF"/> 
-            <p/>
-            <p:inputText value="#{alunoControle.alunoTemp.cpf}"
-                         maxlength="11" required="true" requiredMessage="Cpf obrigatório" />
-            <p:outputLabel  value="Senha"/> 
-            <p/>
-            <p:password value="#{alunoControle.alunoTemp.senha}"
-                         maxlength="16" required="true" requiredMessage="Senha obrigatória" />
-            
-            <p:commandButton value="Salvar" 
-                             action="#{alunoControle.salvarAluno()}"
-                             update="formCadastro" />
-            <p/>
-            <p:messages showIcon="false" closable="true" />
+            <h:panelGrid columns="3">
+                <p:outputLabel  value="Nome"/> 
+                <p/>
+                <p:inputText value="#{alunoControle.alunoTemp.nome}"
+                             maxlength="50" required="true" requiredMessage="Nome obrigatório" />
+                <p:outputLabel  value="CPF"/> 
+                <p/>
+                <p:inputText value="#{alunoControle.alunoTemp.cpf}"
+                             maxlength="11" required="true" requiredMessage="Cpf obrigatório" />
+                <p:outputLabel  value="Senha"/> 
+                <p/>
+                <p:password value="#{alunoControle.alunoTemp.senha}"
+                            maxlength="16" required="true" requiredMessage="Senha obrigatória" />
+
+                <p:commandButton value="Salvar" 
+                                 action="#{alunoControle.salvarAluno()}"
+                                 update="formCadastro" />
+                <p:messages showIcon="false" closable="true" />
+            </h:panelGrid>
         </h:form>
-        <p/>
         
     </h:body>
 </html>

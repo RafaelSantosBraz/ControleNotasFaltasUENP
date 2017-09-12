@@ -15,13 +15,17 @@
             <h:panelGrid columns="2">
             <p:outputLabel  value="Nome"/> 
             <p:inputText value="#{alunoControle.alunoTemp.nome}"
-                         maxlength="50" required="true" requiredMessage="Nome obrigatório" />
+                         maxlength="50" required="false" requiredMessage="Nome obrigatório" />
             <p:outputLabel  value="Senha"/> 
             <p:password value="#{alunoControle.alunoTemp.senha}"
-                         maxlength="16" required="true" requiredMessage="Senha obrigatória" />
+                         maxlength="16" required="false" requiredMessage="Senha obrigatória" />
             </h:panelGrid>
+            <br />
             <p:commandButton value="Salvar" 
-                             action="#{alunoControle.alterar()}"
+                             action="#{alunoControle.salvarAluno()}"
+                             update="formCadastro" />
+            <p:commandButton value="Cancelar" 
+                             action="view.xhtml"
                              update="formCadastro" />
             <p/>
             <p:messages showIcon="false" closable="true" />

@@ -41,16 +41,18 @@ public class AlunoControle implements Serializable {
             }
         }
         FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Senha Inválida", null));
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválida", null));
         return null;
     }
     
-    public void salvarAluno(){
+    public String salvarAluno(){
+        alunoTemp.setCpf("123");
         alunoDao.inserir(alunoTemp);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Cadastrado", null));
         alunos.add(alunoTemp);
         alunoTemp = new Aluno();
+        return "index.xhtml";
     }
     
     public void alterar(){

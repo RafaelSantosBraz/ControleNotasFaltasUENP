@@ -11,26 +11,26 @@
     </h:head>
     <h:body>
         <h:form id="formTabela">
-            <p:dataTable id="tabAlunos" emptyMessage="Nenhum aluno cadastrado"
-                         var="aluno" value="#{alunoControle.alunos}">
+            <p:dataTable id="tabDisciplinas" emptyMessage="Nenhuma Disciplina Cadastrada"
+                         var="disciplinas" value="#{disciplinas}">
                 <p:column headerText="Disciplina: ">
                     <h:outputText value="#{disciplina.nome}"/>
                 </p:column>
-                <p:column headerText="Faltas: ">
-                    <h:outputText value="#{matricula.faltas}"/>
+                <p:column headerText="Carga Horária: ">
+                    <h:outputText value="#{matricula.cargaHoraria}"/>
                 </p:column>
                 <p:column headerText="">
                     <p:commandButton icon="ui-icon-trash" value="excluir"
-                                     actionListener="#{alunoControle.excluir(aluno)}"
-                                     update=":formTabela">
-                        <p:confirm header="Excluir aluno"
-                                   message="Tem certeza que deseja excluir este aluno?"
+                                     actionListener="#{disciplinas}"
+                                     update="formTabela">
+                        <p:confirm header="Excluir Disciplina"
+                                   message="Tem certeza que deseja excluir esta Disciplina?"
                                    icon="ui-icon-alert"/>
                     </p:commandButton>
                 </p:column>
                 <p:column headerText="">
-                    <p:commandButton value="editar" action="#{alunoControle.alterar(aluno)}" 
-                                     onclick="PF('editarCursoDialog').show()"
+                    <p:commandButton value="editar" action="#{disciplinaDao.alterar(disciplina)}" 
+                                     onclick="PF('editarDisciplinaDialog').show()"
                                      update=":formAltera"/>
                 </p:column>
             </p:dataTable>
@@ -44,15 +44,15 @@
             
         </h:form>
         
-        <p:dialog id="editarCursoDialog" widgetVar="editarCursoDialog" modal="true" header="Alteração de aluno">   
+        <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina">   
             <h:form id="formAltera">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Código: "/>
                     <p:inputText id="campoLogin" size="14" 
-                                 value="#{alunoControle.alunoTemp.codigo}" 
+                                 value="#{disciplina.getCodigo()}" 
                                  disabled="true"/>                       
                     <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{alunoControle.alunoTemp.nome}"
+                    <p:inputText value="#{disciplina.getNome()}"
                                  required="true" requiredMessage="Nome obrigatório" />
                 </h:panelGrid>
                 <p/>
