@@ -20,10 +20,10 @@ public class AlunoDao implements Serializable {
      * @param d
      * @return
      */
-    public boolean alterar(Aluno d) {
+    public boolean alterar(Aluno a) {
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
-        manager.merge(d);
+        manager.merge(a);
         manager.getTransaction().commit();
         manager.close();
         return true;

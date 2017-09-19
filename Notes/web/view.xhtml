@@ -11,6 +11,10 @@
     </h:head>
     <h:body>
         <h:form id="formTabela">
+            <p:commandButton value="Alterar Perfil"
+                             action="profile.xhtml"
+                             update="formTabela" />
+            <h:outputText value="#{alunoControle.getAluno().getNome()}"/>
             <p:dataTable id="tabDisciplinas" emptyMessage="Nenhuma Disciplina Cadastrada"
                          var="disciplinas" value="#{disciplinas}">
                 <p:column headerText="Disciplina: ">
@@ -34,16 +38,15 @@
                                      update=":formAltera"/>
                 </p:column>
             </p:dataTable>
-            
+
             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                 <p:outputPanel style="width: 100%; text-align:center" layout="block"> 
                     <p:commandButton value="sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                     <p:commandButton value="não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                 </p:outputPanel>
             </p:confirmDialog>
-            
         </h:form>
-        
+
         <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina">   
             <h:form id="formAltera">  
                 <h:panelGrid columns="2">
@@ -63,7 +66,7 @@
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:messages id="msgPopup" showIcon="false" closable="true" />
-                </p:outputPanel>  
+                </p:outputPanel>
             </h:form >
         </p:dialog>
     </h:body>

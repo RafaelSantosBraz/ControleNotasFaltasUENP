@@ -14,11 +14,11 @@
             <h:panelGrid columns="3">
                 <p:outputLabel  value="CPF"/>
                 <p:inputText value="#{alunoControle.alunoTemp.cpf}"
-                             maxlength="11" required="false" requiredMessage="CPF obrigatório" />
+                             maxlength="11" required="true" requiredMessage="CPF obrigatório" />
                 <br />
                 <p:outputLabel value="Senha"/>
                 <p:password value="#{alunoControle.alunoTemp.senha}"
-                            maxlength="16" required="false" requiredMessage="Senha obrigatória" />
+                            maxlength="16" required="true" requiredMessage="Senha obrigatória" />
                 <br />
                 <br />
                 <p:commandButton value="Login"

@@ -29,9 +29,15 @@
                 <p:commandButton value="Salvar" 
                                  action="#{alunoControle.salvarAluno()}"
                                  update="formCadastro" />
+                <p:commandButton value="Cancelar" 
+                                 action="index.xhtml"
+                                 update="formCadastro" 
+                                 immediate="true"/>
+                <p/>
                 <p:messages showIcon="false" closable="true" />
             </h:panelGrid>
         </h:form>
+        
         
     </h:body>
 </html>
