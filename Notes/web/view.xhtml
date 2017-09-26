@@ -13,19 +13,18 @@
         <h:form id="formTabela">
             <p:commandButton value="Alterar Perfil"
                              action="profile.xhtml"
-                             update="formTabela" />
-            <h:outputText value="#{alunoControle.getAluno().getNome()}"/>
+                             update="formTabela" />            
             <p:dataTable id="tabDisciplinas" emptyMessage="Nenhuma Disciplina Cadastrada"
-                         var="disciplinas" value="#{disciplinas}">
+                         var="ma" value="#{alunoControle.aluno.matriculas}">
                 <p:column headerText="Disciplina: ">
-                    <h:outputText value="#{disciplina.nome}"/>
+                    <h:outputText value="#{ma.codigo}"/>
                 </p:column>
                 <p:column headerText="Carga Horária: ">
-                    <h:outputText value="#{matricula.cargaHoraria}"/>
+                    <h:outputText value="#{ma.disciplina}"/>
                 </p:column>
                 <p:column headerText="">
                     <p:commandButton icon="ui-icon-trash" value="excluir"
-                                     actionListener="#{disciplinas}"
+                                     actionListener="#{ma.disciplina}"
                                      update="formTabela">
                         <p:confirm header="Excluir Disciplina"
                                    message="Tem certeza que deseja excluir esta Disciplina?"

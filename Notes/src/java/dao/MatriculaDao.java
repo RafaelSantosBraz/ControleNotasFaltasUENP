@@ -8,9 +8,10 @@ import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import modelo.Aluno;
+import modelo.Matricula;
 import util.JpaUtil;
 
-public class AlunoDao implements Serializable {
+public class MatriculaDao implements Serializable {
 
     EntityManager manager;
 
@@ -20,7 +21,7 @@ public class AlunoDao implements Serializable {
      * @param a
      * @return
      */
-    public boolean alterar(Aluno a) {
+    public boolean alterar(Matricula a) {
         manager = JpaUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.merge(a);
@@ -29,20 +30,20 @@ public class AlunoDao implements Serializable {
         return true;
     }
 
-    public Aluno buscarPorCodigo(int cod) {
+    public Matricula buscarPorCodigo(int cod) {
         manager = JpaUtil.getEntityManager();
-        Aluno Aluno = manager.find(Aluno.class, cod);
+        Matricula Matricula = manager.find(Matricula.class, cod);
         manager.close();
-        return Aluno;
+        return Matricula;
     }
 
-    public Aluno buscarPorCPF(String cpf) {
+    public List<Matricula> buscarPorAluno(Aluno cod) {
         manager = JpaUtil.getEntityManager();
-        TypedQuery<Aluno> query = manager.createNamedQuery("Aluno.findByCpf", Aluno.class);
-        query.setParameter("cpf", cpf);
+        TypedQuery<Matricula> query = manager.createNamedQuery("Matricula.findByAluno", Matricula.class);
+        query.setParameter("cod", cod);
         try {
-            if (query.getSingleResult() != null) {
-                return query.getSingleResult();
+            if (query.getResultList()!= null) {
+                return query.getResultList();
             } else {
                 return null;
             }
@@ -51,33 +52,33 @@ public class AlunoDao implements Serializable {
         }
     }
 
-    public boolean excluir(Aluno Aluno) {
+    public boolean excluir(Matricula Matricula) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         // recupera a referência ao objeto
-        Aluno temp = manager.find(Aluno.class, Aluno.getCodigo());
+        Matricula temp = manager.find(Matricula.class, Matricula.getCodigo());
         manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
     }
 
-    public boolean inserir(Aluno Aluno) {
+    public boolean inserir(Matricula Matricula) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        manager.persist(Aluno);
+        manager.persist(Matricula);
         tx.commit();
         manager.close();
         return true;
     }
 
-    public List<Aluno> listarTodos() {
+    public List<Matricula> listarTodos() {
         manager = JpaUtil.getEntityManager();
-        CriteriaQuery<Aluno> query = manager.getCriteriaBuilder().createQuery(Aluno.class);
-        query.select(query.from(Aluno.class));
-        List<Aluno> lista = manager.createQuery(query).getResultList();
+        CriteriaQuery<Matricula> query = manager.getCriteriaBuilder().createQuery(Matricula.class);
+        query.select(query.from(Matricula.class));
+        List<Matricula> lista = manager.createQuery(query).getResultList();
         manager.close();
         return lista;
     }
