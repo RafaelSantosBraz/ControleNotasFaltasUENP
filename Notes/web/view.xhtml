@@ -15,24 +15,27 @@
                              action="profile.xhtml"
                              update="formTabela" />            
             <p:dataTable id="tabDisciplinas" emptyMessage="Nenhuma Disciplina Cadastrada"
-                         var="ma" value="#{alunoControle.aluno.matriculas}">
+                         var="ma" value="#{disciplinaControle.disciplinas}">
                 <p:column headerText="Disciplina: ">
-                    <h:outputText value="#{ma.codigo}"/>
+                    <h:outputText value="#{ma.nome}"/>
                 </p:column>
                 <p:column headerText="Carga Horária: ">
-                    <h:outputText value="#{ma.disciplina}"/>
+                    <h:outputText value="#{ma.cargaHoraria}"/>
                 </p:column>
-                <p:column headerText="">
+                 <p:column headerText="Faltas: ">
+                     <h:outputText value="#{ma.faltas}"/>
+                </p:column>                
+                <p:column headerText="Excluir">
                     <p:commandButton icon="ui-icon-trash" value="excluir"
-                                     actionListener="#{ma.disciplina}"
-                                     update="formTabela">
+                                     actionListener="#{disciplinaDao.excluir(ma)}"
+                                     update=":formTabela">
                         <p:confirm header="Excluir Disciplina"
                                    message="Tem certeza que deseja excluir esta Disciplina?"
                                    icon="ui-icon-alert"/>
                     </p:commandButton>
                 </p:column>
-                <p:column headerText="">
-                    <p:commandButton value="editar" action="#{disciplinaDao.alterar(disciplina)}" 
+                <p:column headerText="Editar">
+                    <p:commandButton value="editar" action="#{disciplinaDao.alterar(ma)}" 
                                      onclick="PF('editarDisciplinaDialog').show()"
                                      update=":formAltera"/>
                 </p:column>
@@ -51,16 +54,16 @@
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Código: "/>
                     <p:inputText id="campoLogin" size="14" 
-                                 value="#{disciplina.getCodigo()}" 
+                                 value="#{disciplinaControle.disciplina.getCodigo()}" 
                                  disabled="true"/>                       
                     <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{disciplina.getNome()}"
+                    <p:inputText value="#{disciplinaControle.disciplina.nome}"
                                  required="true" requiredMessage="Nome obrigatório" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{alunoControle.alterar()}" 
+                                     action="#{disciplinaControle.alterar()}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >

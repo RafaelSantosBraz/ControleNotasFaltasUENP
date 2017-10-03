@@ -9,16 +9,16 @@
         <title>Cadastrar Usuário</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </h:head>
-    
+
     <h:body>
         <h:form id="formCadastro">
             <h:panelGrid columns="2">
-            <p:outputLabel  value="Nome"/> 
-            <p:inputText value="#{alunoControle.alunoTemp.nome}"
-                         maxlength="50" required="false" requiredMessage="Nome obrigatório" />
-            <p:outputLabel  value="Senha"/> 
-            <p:password value="#{alunoControle.alunoTemp.senha}"
-                         maxlength="16" required="true" requiredMessage="Senha obrigatória" />
+                <p:outputLabel  value="Nome"/> 
+                <p:inputText value="#{alunoControle.alunoTemp.nome}"
+                             maxlength="50" required="false" requiredMessage="Nome obrigatório" />
+                <p:outputLabel  value="Senha"/> 
+                <p:password value="#{alunoControle.alunoTemp.senha}"
+                            maxlength="16" required="true" requiredMessage="Senha obrigatória" />
             </h:panelGrid>
             <br />
             <p:commandButton value="Salvar" 
@@ -31,6 +31,6 @@
             <p:messages showIcon="false" closable="true" />
         </h:form>
         <p/>
-        
+
     </h:body>
 </html>

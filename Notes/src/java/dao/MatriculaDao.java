@@ -42,7 +42,7 @@ public class MatriculaDao implements Serializable {
         TypedQuery<Matricula> query = manager.createNamedQuery("Matricula.findByAluno", Matricula.class);
         query.setParameter("cod", cod);
         try {
-            if (query.getResultList()!= null) {
+            if (query.getResultList() != null) {
                 return query.getResultList();
             } else {
                 return null;

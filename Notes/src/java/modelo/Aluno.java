@@ -6,7 +6,6 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,7 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -43,21 +41,10 @@ public class Aluno implements Serializable {
     @Column(length = 16, name = "senha")
     private String senha;
 
-    @OneToMany(mappedBy = "aluno")
-    private List<Matricula> matriculas;
-
     public Aluno() {
         this.codigo = 0;
         this.cpf = "";
         this.nome = "";
-    }
-
-    public List<Matricula> getMatriculas() {
-        return matriculas;
-    }
-
-    public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
     }
 
     public String getSenha() {
@@ -94,10 +81,11 @@ public class Aluno implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 23 * hash + Objects.hashCode(this.codigo);
-        hash = 23 * hash + Objects.hashCode(this.cpf);
-        hash = 23 * hash + Objects.hashCode(this.nome);
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.codigo);
+        hash = 37 * hash + Objects.hashCode(this.cpf);
+        hash = 37 * hash + Objects.hashCode(this.nome);
+        hash = 37 * hash + Objects.hashCode(this.senha);
         return hash;
     }
 
@@ -119,6 +107,9 @@ public class Aluno implements Serializable {
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
         if (!Objects.equals(this.codigo, other.codigo)) {
             return false;
         }
@@ -127,7 +118,7 @@ public class Aluno implements Serializable {
 
     @Override
     public String toString() {
-        return "Aluno{" + "codigo=" + codigo + ", cpf=" + cpf + ", nome=" + nome + '}';
+        return "Aluno{" + "codigo=" + codigo + ", cpf=" + cpf + ", nome=" + nome + ", senha=" + senha + '}';
     }
 
 }

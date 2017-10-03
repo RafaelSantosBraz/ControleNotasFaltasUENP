@@ -53,9 +53,8 @@ public class AlunoDaoTest {
 //        a.getMatriculas().add(m);
 //        new AlunoDao().alterar(a);
 //    }
-
     @Test
-    public void testeInserir(){
+    public void testeInserir() {
         Aluno a = new Aluno();
         a.setCpf("12312312312");
         a.setSenha("rafael1234");

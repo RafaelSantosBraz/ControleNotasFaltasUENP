@@ -6,14 +6,13 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,21 +35,33 @@ public class Disciplina implements Serializable {
     @Column(name = "cargaHoraria")
     private Integer cargaHoraria;
 
-    @OneToMany(mappedBy = "disciplina")
-    private List<Matricula> matriculas;
+    @Column(name = "faltas")
+    private Integer faltas;
+
+    @OneToOne
+    private Aluno aluno;
 
     public Disciplina() {
         this.codigo = 0;
         this.cargaHoraria = 0;
         this.nome = "";
+        this.faltas = 0;
     }
 
-    public List<Matricula> getMatriculas() {
-        return matriculas;
+    public Integer getFaltas() {
+        return faltas;
     }
 
-    public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
+    public void setFaltas(Integer faltas) {
+        this.faltas = faltas;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
     }
 
     public Integer getCodigo() {
@@ -80,9 +91,11 @@ public class Disciplina implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.codigo);
-        hash = 53 * hash + Objects.hashCode(this.nome);
-        hash = 53 * hash + Objects.hashCode(this.cargaHoraria);
+        hash = 41 * hash + Objects.hashCode(this.codigo);
+        hash = 41 * hash + Objects.hashCode(this.nome);
+        hash = 41 * hash + Objects.hashCode(this.cargaHoraria);
+        hash = 41 * hash + Objects.hashCode(this.faltas);
+        hash = 41 * hash + Objects.hashCode(this.aluno);
         return hash;
     }
 
@@ -107,12 +120,18 @@ public class Disciplina implements Serializable {
         if (!Objects.equals(this.cargaHoraria, other.cargaHoraria)) {
             return false;
         }
+        if (!Objects.equals(this.faltas, other.faltas)) {
+            return false;
+        }
+        if (!Objects.equals(this.aluno, other.aluno)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHoraria=" + cargaHoraria + '}';
+        return "Disciplina{" + "codigo=" + codigo + ", nome=" + nome + ", cargaHoraria=" + cargaHoraria + ", faltas=" + faltas + ", aluno=" + aluno + '}';
     }
 
 }

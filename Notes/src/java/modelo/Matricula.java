@@ -47,7 +47,7 @@ public class Matricula implements Serializable {
     @Column(name = "faltas")
     private Integer faltas;
 
-    public Matricula() {     
+    public Matricula() {
         faltas = 0;
     }
 
@@ -124,6 +124,5 @@ public class Matricula implements Serializable {
     public String toString() {
         return "Matricula{" + "codigo=" + codigo + ", aluno=" + aluno + ", disciplina=" + disciplina + ", faltas=" + faltas + '}';
     }
-    
-    
+
 }

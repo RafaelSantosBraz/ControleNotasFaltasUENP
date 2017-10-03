@@ -2,9 +2,13 @@ package dao;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.servlet.http.HttpSession;
+import modelo.Aluno;
 import modelo.Disciplina;
 import util.JpaUtil;
 
@@ -60,8 +64,17 @@ public class DisciplinaDao implements Serializable {
         manager = JpaUtil.getEntityManager();
         CriteriaQuery<Disciplina> query = manager.getCriteriaBuilder().createQuery(Disciplina.class);
         query.select(query.from(Disciplina.class));
-        List<Disciplina> lista = manager.createQuery(query).getResultList();
+        List<Disciplina> lista = manager.createQuery(query).getResultList();        
         manager.close();
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        Aluno a = (Aluno) session.getAttribute("usuarioLogado");
+        for (Disciplina disciplina : lista) {
+            if (disciplina.getAluno().getCodigo()!= a.getCodigo()){
+                lista.remove(disciplina);
+            }
+        }
         return lista;
     }
 

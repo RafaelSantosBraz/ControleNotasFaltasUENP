@@ -6,7 +6,6 @@
 package controle;
 
 import dao.AlunoDao;
-import dao.MatriculaDao;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -28,14 +27,12 @@ public class AlunoControle implements Serializable {
     private Aluno aluno;
     private Aluno alunoTemp;
     private AlunoDao alunoDao;
-    private MatriculaDao matriculaDao;
     private List<Aluno> alunos;
 
     public AlunoControle() {
         aluno = new Aluno();
         alunoTemp = new Aluno();
         alunoDao = new AlunoDao();
-        matriculaDao = new MatriculaDao();
         alunos = alunoDao.listarTodos();
     }
 
@@ -44,12 +41,11 @@ public class AlunoControle implements Serializable {
             if (aux.getCpf().equals(alunoTemp.getCpf()) && aux.getSenha().equals(alunoTemp.getSenha())) {
                 alunoTemp.setCodigo(aux.getCodigo());
                 aluno = alunoTemp;
-                aluno.setMatriculas(matriculaDao.buscarPorAluno(aluno));
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválida", null));
                 ExternalContext ectx = context.getExternalContext();
                 HttpSession session = (HttpSession) ectx.getSession(true);
-                session.setAttribute("usuarioLogado", getAlunoTemp());
+                session.setAttribute("usuarioLogado", getAlunoTemp());                
                 return "view.xhtml";
             }
         }
@@ -70,8 +66,8 @@ public class AlunoControle implements Serializable {
         ExternalContext ectx = context.getExternalContext();
         HttpSession session = (HttpSession) ectx.getSession(true);
         Aluno a = (Aluno) session.getAttribute("usuarioLogado");
-        if (!a.getNome().isEmpty()) {
-            a.setNome(alunoTemp.getNome());            
+        if (!alunoTemp.getNome().isEmpty()) {
+            a.setNome(alunoTemp.getNome());
         }
         a.setSenha(alunoTemp.getSenha());
         alunoDao.alterar(a);
@@ -109,14 +105,6 @@ public class AlunoControle implements Serializable {
 
     public void setAlunoTemp(Aluno alunoTemp) {
         this.alunoTemp = alunoTemp;
-    }
-
-    public MatriculaDao getMatriculaDao() {
-        return matriculaDao;
-    }
-
-    public void setMatriculaDao(MatriculaDao matriculaDao) {
-        this.matriculaDao = matriculaDao;
-    }
+    }  
 
 }
