@@ -14,6 +14,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import modelo.Aluno;
 import modelo.Disciplina;
 
 /**
@@ -39,26 +40,95 @@ public class DisciplinaControle implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ectx = context.getExternalContext();
         HttpSession session = (HttpSession) ectx.getSession(true);
-        session.setAttribute("disciplinasLogado", getDisciplina());
+        Aluno a = (Aluno) session.getAttribute("usuarioLogado");
+        disciplina.setAluno(a);
+        session.setAttribute("disciplinasLogado", getDisciplinas());
     }
 
     public void salvarDisciplina() {
-        disciplinaDao.inserir(disciplina);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Cadastrada", null));
-        disciplinas.add(disciplina);
-        disciplina = new Disciplina();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        List<Disciplina> a = (List<Disciplina>) session.getAttribute("disciplinasLogado");
+        for (Disciplina d : a) {
+            if (d.getNome().equals(disciplina.getNome())) {
+                return;
+            }
+        }
+        disciplinaDao.inserir(disciplina);
+        disciplinas = disciplinaDao.listarTodos();
+        manterDisciplina();
+        //disciplinas.add(disciplina);
     }
 
     public void alterar() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ectx = context.getExternalContext();
         HttpSession session = (HttpSession) ectx.getSession(true);
-        Disciplina a = (Disciplina) session.getAttribute("disciplinasLogado");
-        a.setNome(disciplina.getNome());
-        a.setFaltas(disciplina.getFaltas());
-        disciplinaDao.alterar(a);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Cadastrada com Sucesso", null));
+        List<Disciplina> a = (List<Disciplina>) session.getAttribute("disciplinasLogado");
+        for (Disciplina d : a) {
+            if (disciplina.getAluno().getCodigo() == d.getAluno().getCodigo() && disciplina.getCodigo() == d.getCodigo()) {
+                for (Disciplina e : a) {
+                    if (e.getNome().equals(disciplina.getNome())) {
+                        return;
+                    }
+                }
+                d.setNome(disciplina.getNome());
+                disciplinaDao.alterar(d);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
+                break;
+            }
+        }
+    }
+
+    public void preparar(Disciplina ma) {
+        disciplina = ma;
+    }
+
+    public void excluir(Disciplina ma) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        List<Disciplina> a = (List<Disciplina>) session.getAttribute("disciplinasLogado");
+        for (Disciplina d : a) {
+            if (ma == d) {
+                disciplinaDao.excluir(d);
+                disciplinas.remove(d);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
+                break;
+            }
+        }
+    }
+
+    public void alterarCarga() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        List<Disciplina> a = (List<Disciplina>) session.getAttribute("disciplinasLogado");
+        for (Disciplina d : a) {
+            if (disciplina.getAluno().getCodigo() == d.getAluno().getCodigo() && disciplina.getCodigo() == d.getCodigo()) {
+                d.setCargaHoraria(disciplina.getCargaHoraria());
+                disciplinaDao.alterar(d);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
+                break;
+            }
+        }
+    }
+
+    public void alterarFaltas() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        List<Disciplina> a = (List<Disciplina>) session.getAttribute("disciplinasLogado");
+        for (Disciplina d : a) {
+            if (disciplina.getAluno().getCodigo() == d.getAluno().getCodigo() && disciplina.getCodigo() == d.getCodigo()) {
+                d.setFaltas(disciplina.getFaltas());
+                disciplinaDao.alterar(d);
+                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
+                break;
+            }
+        }
     }
 
     public Disciplina getDisciplina() {
