@@ -24,63 +24,58 @@ import modelo.Aluno;
 @ViewScoped
 public class AlunoControle implements Serializable {
 
-    private Aluno aluno;
-    private Aluno alunoTemp;
     private AlunoDao alunoDao;
     private List<Aluno> alunos;
 
     public AlunoControle() {
-        aluno = new Aluno();
-        alunoTemp = new Aluno();
         alunoDao = new AlunoDao();
         alunos = alunoDao.listarTodos();
     }
 
-    public String login() {
-        for (Aluno aux : alunos) {
-            if (aux.getCpf().equals(alunoTemp.getCpf()) && aux.getSenha().equals(alunoTemp.getSenha())) {
-                alunoTemp.setCodigo(aux.getCodigo());
-                aluno = alunoTemp;
-                FacesContext context = FacesContext.getCurrentInstance();
-                context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválida", null));
-                ExternalContext ectx = context.getExternalContext();
-                HttpSession session = (HttpSession) ectx.getSession(true);
-                session.setAttribute("usuarioLogado", getAlunoTemp());                
-                return "view.xhtml";
-            }
+    public String login(String cpf, String senha) {
+        Aluno a = alunoDao.autenticarAluno(cpf, senha);
+        if (a != null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            ExternalContext ectx = context.getExternalContext();
+            HttpSession session = (HttpSession) ectx.getSession(true);
+            session.setAttribute("usuarioLogado", a);
+            return "paginaPrincipal.xhtml";
         }
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou Senha Inválida", null));
         return null;
     }
 
-    public String salvarAluno() {
-        alunoDao.inserir(alunoTemp);
+    public String salvarAluno(String nome, String cpf, String senha) {
+        Aluno a = new Aluno(nome, cpf, senha);
+        alunoDao.inserir(a);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Cadastrado", null));
-        alunos.add(alunoTemp);
-        alunoTemp = new Aluno();
+        alunos.add(a);
         return "index.xhtml";
     }
 
-    public String alterar() {
+    public String alterarNomeSenha(String nome, String senha) {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ectx = context.getExternalContext();
         HttpSession session = (HttpSession) ectx.getSession(true);
         Aluno a = (Aluno) session.getAttribute("usuarioLogado");
-        if (!alunoTemp.getNome().isEmpty()) {
-            a.setNome(alunoTemp.getNome());
+        if ("".equals(senha) && "".equals(nome)) {
+            return null;
         }
-        a.setSenha(alunoTemp.getSenha());
+        if (!"".equals(nome) && "".equals(senha)) {
+            a.setNome(nome);
+        }
+        if ("".equals(nome) && !"".equals(senha)) {
+            a.setSenha(senha);
+        }
+        if (!"".equals(nome) && !"".equals(senha)) {
+            a.setNome(nome);
+            a.setSenha(senha);
+        }
         alunoDao.alterar(a);
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário Cadastrado com Sucesso", null));
-        return "index.xhtml";
-    }
-
-    public Aluno getAluno() {
-        return aluno;
-    }
-
-    public void setAluno(Aluno aluno) {
-        this.aluno = aluno;
+        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dados Alterados com Sucesso", null));
+        return "paginaPrincipal.xhtml";
     }
 
     public AlunoDao getAlunoDao() {
@@ -98,13 +93,4 @@ public class AlunoControle implements Serializable {
     public void setAlunos(List<Aluno> alunos) {
         this.alunos = alunos;
     }
-
-    public Aluno getAlunoTemp() {
-        return alunoTemp;
-    }
-
-    public void setAlunoTemp(Aluno alunoTemp) {
-        this.alunoTemp = alunoTemp;
-    }  
-
 }

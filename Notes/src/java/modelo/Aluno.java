@@ -23,7 +23,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "aluno") // nome da tabela
 @NamedQueries({
-    @NamedQuery(name = "Aluno.findByCpf", query = "SELECT u FROM Aluno u WHERE u.cpf = :cpf")
+    @NamedQuery(name = "Aluno.findByCpf", query = "SELECT a FROM Aluno a WHERE a.cpf = :cpf"),
+    @NamedQuery(name = "Aluno.login", query = "SELECT a FROM Aluno a WHERE a.cpf = :cpf and a.senha = :senha")
 })
 public class Aluno implements Serializable {
 
@@ -45,8 +46,16 @@ public class Aluno implements Serializable {
         this.codigo = 0;
         this.cpf = "";
         this.nome = "";
+        this.senha = "";
     }
-
+    
+    public Aluno(String nome, String cpf, String senha) {
+        this.codigo = 0;
+        this.cpf = cpf;
+        this.nome = nome;
+        this.senha = senha;
+    }
+    
     public String getSenha() {
         return senha;
     }
@@ -82,10 +91,10 @@ public class Aluno implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 37 * hash + Objects.hashCode(this.codigo);
-        hash = 37 * hash + Objects.hashCode(this.cpf);
-        hash = 37 * hash + Objects.hashCode(this.nome);
-        hash = 37 * hash + Objects.hashCode(this.senha);
+        hash = 41 * hash + Objects.hashCode(this.codigo);
+        hash = 41 * hash + Objects.hashCode(this.cpf);
+        hash = 41 * hash + Objects.hashCode(this.nome);
+        hash = 41 * hash + Objects.hashCode(this.senha);
         return hash;
     }
 
@@ -110,10 +119,7 @@ public class Aluno implements Serializable {
         if (!Objects.equals(this.senha, other.senha)) {
             return false;
         }
-        if (!Objects.equals(this.codigo, other.codigo)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.codigo, other.codigo);
     }
 
     @Override

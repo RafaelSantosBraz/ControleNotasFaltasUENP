@@ -31,9 +31,9 @@ public class AlunoDao implements Serializable {
 
     public Aluno buscarPorCodigo(int cod) {
         manager = JpaUtil.getEntityManager();
-        Aluno Aluno = manager.find(Aluno.class, cod);
+        Aluno aluno = manager.find(Aluno.class, cod);
         manager.close();
-        return Aluno;
+        return aluno;
     }
 
     public Aluno buscarPorCPF(String cpf) {
@@ -50,24 +50,40 @@ public class AlunoDao implements Serializable {
             return null;
         }
     }
-
-    public boolean excluir(Aluno Aluno) {
+    
+    public Aluno autenticarAluno(String cpf, String senha) {
+        manager = JpaUtil.getEntityManager();
+        TypedQuery<Aluno> query = manager.createNamedQuery("Aluno.login", Aluno.class);
+        query.setParameter("cpf", cpf);
+        query.setParameter("senha", senha);
+        try {
+            if (query.getSingleResult() != null) {
+                return query.getSingleResult();
+            } else {
+                return null;
+            }
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+    
+    public boolean excluir(Aluno aluno) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
         // recupera a referência ao objeto
-        Aluno temp = manager.find(Aluno.class, Aluno.getCodigo());
+        Aluno temp = manager.find(Aluno.class, aluno.getCodigo());
         manager.remove(temp);
         tx.commit();
         manager.close();
         return true;
     }
 
-    public boolean inserir(Aluno Aluno) {
+    public boolean inserir(Aluno aluno) {
         manager = JpaUtil.getEntityManager();
         EntityTransaction tx = manager.getTransaction();
         tx.begin();
-        manager.persist(Aluno);
+        manager.persist(aluno);
         tx.commit();
         manager.close();
         return true;

@@ -12,25 +12,28 @@
     <h:body>
         <h:form id="formTabela">
             <p:commandButton value="Alterar Perfil"
-                             action="profile.xhtml"
+                             action="alterarPerfil.xhtml"
                              update="formTabela" />    
             <p:commandButton value="Nova Disciplina" 
                              onclick="PF('novaDisciplinaDialog').show()"
-                             update="formTabela"/>
+                             update=":formTabela"/>
+            <p:commandButton value="Sair" 
+                             action="index.xhtml"
+                             update=":formTabela"/>
             <p:dataTable id="tabDisciplinas" emptyMessage="Nenhuma Disciplina Cadastrada"
-                         var="ma" value="#{disciplinaControle.disciplinas}">
+                         var="d" value="#{disciplinaControle.disciplinas}">
                 <p:column headerText="Disciplina: ">
-                    <h:outputText value="#{ma.nome}"/>
+                    <h:outputText value="#{d.nome}"/>
                 </p:column>
                 <p:column headerText="Carga Horária: ">
-                    <h:outputText value="#{ma.cargaHoraria}"/>
+                    <h:outputText value="#{d.cargaHoraria}"/>
                 </p:column>
                 <p:column headerText="Faltas: ">
-                    <h:outputText value="#{ma.faltas}"/>
+                    <h:outputText value="#{d.faltas}"/>
                 </p:column>                
                 <p:column headerText="Excluir">
                     <p:commandButton icon="ui-icon-trash" value="excluir"
-                                     actionListener="#{disciplinaControle.excluir(ma)}"
+                                     actionListener="#{disciplinaControle.excluir(d)}"
                                      update=":formTabela">
                         <p:confirm header="Excluir Disciplina"
                                    message="Tem certeza que deseja excluir esta Disciplina?"
@@ -38,20 +41,14 @@
                     </p:commandButton>
                 </p:column>
                 <p:column headerText="Editar">
-                    <p:commandButton value="editar nome" 
-                                     onclick="PF('editarDisciplinaDialog').show()"
-                                     actionListener="#{disciplinaControle.preparar(ma)}"
-                                     action="view.xhtml"
+                    <p:commandButton value="editar nome"                                      
+                                     action="#{disciplinaControle.exibirPopUpNome(d)}"
                                      update=":formAltera"/>
                     <p:commandButton value="editar faltas" 
-                                     onclick="PF('editarFaltasDialog').show()"
-                                     actionListener="#{disciplinaControle.preparar(ma)}"
-                                     action="view.xhtml"
+                                     action="#{disciplinaControle.exibirPopUpFaltas(d)}"
                                      update=":formAlteraF"/>                 
                     <p:commandButton value="editar carga" 
-                                     onclick="PF('editarCargaDialog').show()"
-                                     actionListener="#{disciplinaControle.preparar(ma)}"
-                                     action="view.xhtml"
+                                     action="#{disciplinaControle.exibirPopUpCarga(d)}"
                                      update=":formAlteraC"/>
                 </p:column>
             </p:dataTable>
@@ -64,17 +61,17 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina">   
+        <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina" visible="#{disciplinaControle.exibirFormAlteraNome}">   
             <h:form id="formAltera">  
                 <h:panelGrid columns="2">                           
                     <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.nome}"
+                    <p:inputText value="#{nome}"
                                  required="true" requiredMessage="Nome obrigatório" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterar()}" 
+                                     action="#{disciplinaControle.alterarNome(nome)}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
@@ -83,17 +80,17 @@
             </h:form >
         </p:dialog>
 
-        <p:dialog id="editarFaltasDialog" widgetVar="editarFaltasDialog" modal="true" header="Alteração de Disciplina - Faltas">   
+        <p:dialog id="editarFaltasDialog" widgetVar="editarFaltasDialog" modal="true" header="Alteração de Disciplina - Faltas" visible="#{disciplinaControle.exibirFormAlteraFaltas}">   
             <h:form id="formAlteraF">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Faltas: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.faltas}"
+                    <p:inputText value="#{faltas}"
                                  required="true" requiredMessage="Número de Faltas Obrigatório!" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterarFaltas()}" 
+                                     action="#{disciplinaControle.alterarFaltas(faltas)}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
@@ -102,17 +99,17 @@
             </h:form >
         </p:dialog>
 
-        <p:dialog id="editarCargaDialog" widgetVar="editarCargaDialog" modal="true" header="Alteração de Disciplina - Carga horária">   
+        <p:dialog id="editarCargaDialog" widgetVar="editarCargaDialog" modal="true" header="Alteração de Disciplina - Carga horária" visible="#{disciplinaControle.exibirFormAlteraCarga}">   
             <h:form id="formAlteraC">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Carga Horária: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.cargaHoraria}"
+                    <p:inputText value="#{carga}"
                                  required="true" requiredMessage="Carga Horária Obrigatória!" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterarCarga()}" 
+                                     action="#{disciplinaControle.alterarCarga(carga)}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
@@ -125,19 +122,19 @@
             <h:form id="formNovaD">  
                 <h:panelGrid columns="2">
                     <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.nome}"
+                    <p:inputText value="#{nome}"
                                  required="true" requiredMessage="Nome Obrigatório!" />
                     <h:outputLabel value="Carga Horária: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.cargaHoraria}"
+                    <p:inputText value="#{carga}"
                                  required="true" requiredMessage="Carga Horária Obrigatória!" />
                     <h:outputLabel value="Faltas: "/>
-                    <p:inputText value="#{disciplinaControle.disciplina.faltas}"
+                    <p:inputText value="#{faltas}"
                                  required="true" requiredMessage="Número de Faltas Obrigatório!" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.salvarDisciplina()}" 
+                                     action="#{disciplinaControle.salvarDisciplina(nome, carga, faltas)}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >

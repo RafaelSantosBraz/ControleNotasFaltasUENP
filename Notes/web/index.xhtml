@@ -13,22 +13,22 @@
         <h:form id="formLogin">
             <h:panelGrid columns="3">
                 <p:outputLabel  value="CPF"/>
-                <p:inputText value="#{alunoControle.alunoTemp.cpf}"
+                <p:inputText value="#{cpf}"
                              maxlength="11" required="true" requiredMessage="CPF obrigatório" />
                 <br />
                 <p:outputLabel value="Senha"/>
-                <p:password value="#{alunoControle.alunoTemp.senha}"
+                <p:password value="#{senha}"
                             maxlength="16" required="true" requiredMessage="Senha obrigatória" />
                 <br />
                 <br />
                 <p:commandButton value="Login"
-                                 action="#{alunoControle.login()}"
+                                 action="#{alunoControle.login(cpf, senha)}"
                                  update="formLogin" />
                 <p:messages showIcon="false" closable="true" />
                 <br />
                 <p:commandButton value="Novo Usuário"
                                  immediate="true"
-                                 action="cadUser.xhtml"
+                                 action="cadastrarUsuario.xhtml"
                                  update="formLogin" />
             </h:panelGrid>
         </h:form>

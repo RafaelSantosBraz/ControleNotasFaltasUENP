@@ -7,13 +7,18 @@ package modelo;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -21,7 +26,11 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "disciplina") // nome da tabela
-
+@NamedQueries({
+    @NamedQuery(name = "Disciplina.findByAluno", query = "SELECT d FROM Disciplina d WHERE d.aluno.codigo = :cod")
+    ,
+    @NamedQuery(name = "Disciplina.findByNome", query = "SELECT d FROM Disciplina d WHERE d.nome = :nome and d.aluno.codigo = :cod")
+})
 public class Disciplina implements Serializable {
 
     @Id
@@ -46,8 +55,23 @@ public class Disciplina implements Serializable {
         this.cargaHoraria = 0;
         this.nome = "";
         this.faltas = 0;
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        this.aluno = (Aluno) session.getAttribute("usuarioLogado");
     }
-
+    
+    public Disciplina(String nome, int carga, int faltas) {
+        this.codigo = 0;
+        this.cargaHoraria = carga;
+        this.nome = nome;
+        this.faltas = faltas;
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        this.aluno = (Aluno) session.getAttribute("usuarioLogado");
+    }
+    
     public Integer getFaltas() {
         return faltas;
     }
@@ -90,12 +114,12 @@ public class Disciplina implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 41 * hash + Objects.hashCode(this.codigo);
-        hash = 41 * hash + Objects.hashCode(this.nome);
-        hash = 41 * hash + Objects.hashCode(this.cargaHoraria);
-        hash = 41 * hash + Objects.hashCode(this.faltas);
-        hash = 41 * hash + Objects.hashCode(this.aluno);
+        int hash = 3;
+        hash = 43 * hash + Objects.hashCode(this.codigo);
+        hash = 43 * hash + Objects.hashCode(this.nome);
+        hash = 43 * hash + Objects.hashCode(this.cargaHoraria);
+        hash = 43 * hash + Objects.hashCode(this.faltas);
+        hash = 43 * hash + Objects.hashCode(this.aluno);
         return hash;
     }
 
@@ -123,10 +147,7 @@ public class Disciplina implements Serializable {
         if (!Objects.equals(this.faltas, other.faltas)) {
             return false;
         }
-        if (!Objects.equals(this.aluno, other.aluno)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.aluno, other.aluno);
     }
 
     @Override
