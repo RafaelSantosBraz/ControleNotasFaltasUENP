@@ -28,10 +28,13 @@
                 <p:column headerText="Carga Horária: ">
                     <h:outputText value="#{d.cargaHoraria}"/>
                 </p:column>
+                <p:column headerText="Limite de Faltas: ">
+                    <h:outputText value="#{(d.faltas*0.25)}"/>
+                </p:column>
                 <p:column headerText="Faltas: ">
                     <h:outputText value="#{d.faltas}"/>
                 </p:column>                
-                <p:column headerText="Excluir">
+                <p:column headerText="Alterar: ">
                     <p:commandButton icon="ui-icon-trash" value="excluir"
                                      actionListener="#{disciplinaControle.excluir(d)}"
                                      update=":formTabela">
@@ -39,11 +42,9 @@
                                    message="Tem certeza que deseja excluir esta Disciplina?"
                                    icon="ui-icon-alert"/>
                     </p:commandButton>
-                </p:column>
-                <p:column headerText="Editar">
                     <p:commandButton value="editar"                                      
                                      action="#{disciplinaControle.exibirPopUp(d)}"
-                                     update=":editarDisciplinaDialog"/>                    
+                                     update=":editarDisciplinaDialog"/> 
                 </p:column>
             </p:dataTable>
 
@@ -57,10 +58,7 @@
 
         <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina" visible="#{disciplinaControle.exibirFormAltera}">   
             <h:form id="formAltera">  
-                <h:panelGrid columns="2">                           
-                    <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{disciplinaControle.disciplinaTemp.nome}"
-                                 required="true" requiredMessage="Nome obrigatório" />
+                <h:panelGrid columns="2">
                     <h:outputLabel value="Carga Horária: "/>
                     <p:inputText value="#{disciplinaControle.disciplinaTemp.cargaHoraria}"
                                  required="true" requiredMessage="Carga obrigatória" />

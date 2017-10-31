@@ -35,7 +35,7 @@ public class DisciplinaControle implements Serializable {
 
     public void salvarDisciplina(String nome, int carga, int faltas) {
         Disciplina d = new Disciplina(nome, carga, faltas);
-        if (disciplinas.contains(d)) {
+        if (disciplinaDao.buscarPorNome(nome) != null) {
             return;
         }
         disciplinaDao.inserir(d);
@@ -43,12 +43,10 @@ public class DisciplinaControle implements Serializable {
     }
 
     public void alterar() {
-        if (disciplinaDao.buscarPorNome(disciplinaTemp.getNome()) == null) {
             disciplinaDao.alterar(disciplinaTemp);
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
             this.exibirFormAltera = false;
-        }
     }
 
     public void excluir(Disciplina d) {
