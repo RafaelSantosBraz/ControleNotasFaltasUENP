@@ -41,15 +41,9 @@
                     </p:commandButton>
                 </p:column>
                 <p:column headerText="Editar">
-                    <p:commandButton value="editar nome"                                      
-                                     action="#{disciplinaControle.exibirPopUpNome(d)}"
-                                     update=":formAltera"/>
-                    <p:commandButton value="editar faltas" 
-                                     action="#{disciplinaControle.exibirPopUpFaltas(d)}"
-                                     update=":formAlteraF"/>                 
-                    <p:commandButton value="editar carga" 
-                                     action="#{disciplinaControle.exibirPopUpCarga(d)}"
-                                     update=":formAlteraC"/>
+                    <p:commandButton value="editar"                                      
+                                     action="#{disciplinaControle.exibirPopUp(d)}"
+                                     update=":editarDisciplinaDialog"/>                    
                 </p:column>
             </p:dataTable>
 
@@ -61,62 +55,30 @@
             </p:confirmDialog>
         </h:form>
 
-        <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina" visible="#{disciplinaControle.exibirFormAlteraNome}">   
+        <p:dialog id="editarDisciplinaDialog" widgetVar="editarDisciplinaDialog" modal="true" header="Alteração de Disciplina" visible="#{disciplinaControle.exibirFormAltera}">   
             <h:form id="formAltera">  
                 <h:panelGrid columns="2">                           
                     <h:outputLabel value="Nome: "/>
-                    <p:inputText value="#{nome}"
+                    <p:inputText value="#{disciplinaControle.disciplinaTemp.nome}"
                                  required="true" requiredMessage="Nome obrigatório" />
-                </h:panelGrid>
-                <p/>
-                <p:outputPanel style="width: 100%; text-align:center" >
-                    <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterarNome(nome)}" 
-                                     styleClass="ui-state-hover"/> 
-                </p:outputPanel>
-                <p:outputPanel style="width: 100%; text-align:center" >
-                    <p:messages id="msgPopup" showIcon="false" closable="true" />
-                </p:outputPanel>
-            </h:form >
-        </p:dialog>
-
-        <p:dialog id="editarFaltasDialog" widgetVar="editarFaltasDialog" modal="true" header="Alteração de Disciplina - Faltas" visible="#{disciplinaControle.exibirFormAlteraFaltas}">   
-            <h:form id="formAlteraF">  
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="Faltas: "/>
-                    <p:inputText value="#{faltas}"
-                                 required="true" requiredMessage="Número de Faltas Obrigatório!" />
-                </h:panelGrid>
-                <p/>
-                <p:outputPanel style="width: 100%; text-align:center" >
-                    <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterarFaltas(faltas)}" 
-                                     styleClass="ui-state-hover"/> 
-                </p:outputPanel>
-                <p:outputPanel style="width: 100%; text-align:center" >
-                    <p:messages id="msgPopup" showIcon="false" closable="true" />
-                </p:outputPanel>
-            </h:form >
-        </p:dialog>
-
-        <p:dialog id="editarCargaDialog" widgetVar="editarCargaDialog" modal="true" header="Alteração de Disciplina - Carga horária" visible="#{disciplinaControle.exibirFormAlteraCarga}">   
-            <h:form id="formAlteraC">  
-                <h:panelGrid columns="2">
                     <h:outputLabel value="Carga Horária: "/>
-                    <p:inputText value="#{carga}"
-                                 required="true" requiredMessage="Carga Horária Obrigatória!" />
+                    <p:inputText value="#{disciplinaControle.disciplinaTemp.cargaHoraria}"
+                                 required="true" requiredMessage="Carga obrigatória" />
+                    <h:outputLabel value="Faltas: "/>
+                    <p:inputText value="#{disciplinaControle.disciplinaTemp.faltas}"
+                                 required="true" requiredMessage="Faltas obrigatória" />
                 </h:panelGrid>
                 <p/>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:commandButton value="Continuar" icon="ui-icon-check" style="width: 150px;" ajax="false"
-                                     action="#{disciplinaControle.alterarCarga(carga)}" 
+                                     action="#{disciplinaControle.alterar()}" 
                                      styleClass="ui-state-hover"/> 
                 </p:outputPanel>
                 <p:outputPanel style="width: 100%; text-align:center" >
                     <p:messages id="msgPopup" showIcon="false" closable="true" />
                 </p:outputPanel>
             </h:form >
-        </p:dialog>
+        </p:dialog>     
         
         <p:dialog id="novaDisciplinaDialog" widgetVar="novaDisciplinaDialog" modal="true" header="Nova Disciplina">   
             <h:form id="formNovaD">  

@@ -22,17 +22,13 @@ import modelo.Disciplina;
 @ViewScoped
 public class DisciplinaControle implements Serializable {
     
-    private boolean exibirFormAlteraNome;
-    private boolean exibirFormAlteraCarga;
-    private boolean exibirFormAlteraFaltas;
+    private boolean exibirFormAltera;   
     private Disciplina disciplinaTemp;
     private DisciplinaDao disciplinaDao;
     private List<Disciplina> disciplinas;
   
     public DisciplinaControle() {
-        exibirFormAlteraNome = false;
-        exibirFormAlteraCarga = false;
-        exibirFormAlteraNome = false;
+        exibirFormAltera = false;
         disciplinaDao = new DisciplinaDao();
         disciplinas = disciplinaDao.listarDisciplinasAluno();
     }
@@ -46,12 +42,12 @@ public class DisciplinaControle implements Serializable {
         disciplinas = disciplinaDao.listarDisciplinasAluno();
     }
 
-    public void alterarNome(String nome) {
-        if (disciplinaDao.buscarPorNome(nome) == null) {
-            disciplinaTemp.setNome(nome);
+    public void alterar() {
+        if (disciplinaDao.buscarPorNome(disciplinaTemp.getNome()) == null) {
             disciplinaDao.alterar(disciplinaTemp);
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Alterada com Sucesso", null));
+            this.exibirFormAltera = false;
         }
     }
 
@@ -61,43 +57,11 @@ public class DisciplinaControle implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Disciplina Removida com Sucesso", null));
     }
-
-    public void alterarCarga(int carga) {
-        disciplinaTemp.setCargaHoraria(carga);
-        disciplinaDao.alterar(disciplinaTemp);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Carga Alterada com Sucesso", null));
-    }
-
-    public void alterarFaltas(int faltas) {
-        disciplinaTemp.setFaltas(faltas);
-        disciplinaDao.alterar(disciplinaTemp);
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Faltas Alterada com Sucesso", null));
-    }
     
-    public void exibirPopUpNome(Disciplina d){
+    public void exibirPopUp(Disciplina d){
         setDisciplinaTemp(d);
-        setExibirFormAlteraNome(true);
+        setExibirFormAltera(true);
     }
-    
-    public void exibirPopUpCarga(Disciplina d){
-        setDisciplinaTemp(d);
-        setExibirFormAlteraCarga(true);
-    }
-    
-    public void exibirPopUpFaltas(Disciplina d){
-        setDisciplinaTemp(d);
-        setExibirFormAlteraFaltas(true);
-    }
-            
-    public boolean isExibirFormAlteraNome() {
-        return exibirFormAlteraNome;
-    }
-
-    public void setExibirFormAlteraNome(boolean exibirFormAlteraNome) {
-        this.exibirFormAlteraNome = exibirFormAlteraNome;
-    }    
     
     public Disciplina getDisciplinaTemp() {
         return disciplinaTemp;
@@ -123,20 +87,12 @@ public class DisciplinaControle implements Serializable {
         this.disciplinas = disciplinas;
     }
 
-    public boolean isExibirFormAlteraCarga() {
-        return exibirFormAlteraCarga;
+    public boolean isExibirFormAltera() {
+        return exibirFormAltera;
     }
 
-    public void setExibirFormAlteraCarga(boolean exibirFormAlteraCarga) {
-        this.exibirFormAlteraCarga = exibirFormAlteraCarga;
-    }
-
-    public boolean isExibirFormAlteraFaltas() {
-        return exibirFormAlteraFaltas;
-    }
-
-    public void setExibirFormAlteraFaltas(boolean exibirFormAlteraFaltas) {
-        this.exibirFormAlteraFaltas = exibirFormAlteraFaltas;
+    public void setExibirFormAltera(boolean exibirFormAltera) {
+        this.exibirFormAltera = exibirFormAltera;
     }
     
     
