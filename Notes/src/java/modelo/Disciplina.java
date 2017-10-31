@@ -55,10 +55,7 @@ public class Disciplina implements Serializable {
         this.cargaHoraria = 0;
         this.nome = "";
         this.faltas = 0;
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext ectx = context.getExternalContext();
-        HttpSession session = (HttpSession) ectx.getSession(true);
-        this.aluno = (Aluno) session.getAttribute("usuarioLogado");
+        this.aluno = null;
     }
     
     public Disciplina(String nome, int carga, int faltas) {
@@ -66,10 +63,7 @@ public class Disciplina implements Serializable {
         this.cargaHoraria = carga;
         this.nome = nome;
         this.faltas = faltas;
-        FacesContext context = FacesContext.getCurrentInstance();
-        ExternalContext ectx = context.getExternalContext();
-        HttpSession session = (HttpSession) ectx.getSession(true);
-        this.aluno = (Aluno) session.getAttribute("usuarioLogado");
+        this.aluno = null;
     }
     
     public Integer getFaltas() {

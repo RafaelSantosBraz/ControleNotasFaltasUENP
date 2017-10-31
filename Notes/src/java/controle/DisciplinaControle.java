@@ -11,7 +11,10 @@ import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+import modelo.Aluno;
 import modelo.Disciplina;
 
 /**
@@ -38,6 +41,10 @@ public class DisciplinaControle implements Serializable {
         if (disciplinaDao.buscarPorNome(nome) != null) {
             return;
         }
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ectx = context.getExternalContext();
+        HttpSession session = (HttpSession) ectx.getSession(true);
+        d.setAluno((Aluno) session.getAttribute("usuarioLogado"));
         disciplinaDao.inserir(d);
         disciplinas = disciplinaDao.listarDisciplinasAluno();
     }
